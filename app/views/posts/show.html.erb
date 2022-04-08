@@ -1,34 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="card my-5">
+  <div class="card-body">
+    <p id="notice"><%= notice %></p>
 
-<h3>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</h3>
-
-<p>
-  <strong>Content:</strong>
-  <%= @post.content %>
-</p>
-
-<h4>Comments</h4>
-
-
-
-<% form_for @post.comments.create do |f| %>
- <p>
-
- <%= f.label :name, "Author" %><br />
- <%= f.text_field :name%><br />
- <%= f.label :body, "Comment Description" %><br />
- <%= f.text_area :comment%>
- </p>
-
- <p>
- <%= f.submit "Add Comment" %>
- </p>
- <% end %>
+    <h1>
+      <strong>Title:</strong>
+      <%= @post.title %>   
+    </h1>
+    <hr >
+    <div class="my-4">
+      <%= simple_format(@post.content) %>
+    </div>
+  </div>
+</div>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-light' %> 
+    <%= link_to 'Back', posts_path, class: 'btn btn-light' %>
 
 
+<div class="card my-1">
+  <div class="card-body">
+    <p class="font-weight-bold">Comments</p>
+    <%= render @post.comments %>
+    <%= form_with(model: [@post, @post.comments.build]) do |f| %>
+      <div class="form-group">
+        <%= f.label 'New comment' %>
+        <%= f.text_area :comment, class: 'form-control' %>
+      </div>
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+
+
+
+
+
+
